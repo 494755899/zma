@@ -20,6 +20,9 @@ export default {
     this.ema.on(['app','app2'], () => {
       console.log('hello app')
     })
+    this.ema.once('once', () => {
+      console.log('once')
+    })
     this.ema.on('ff', () => {
       console.log('hello app')
     })
@@ -39,6 +42,7 @@ export default {
     },
     unbind() {
       this.ema.fire(['app','gobal'],'ff',2,3,4,5)
+      this.ema.fire('once')
     }
   }
 }

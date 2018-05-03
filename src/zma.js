@@ -51,9 +51,23 @@ function Zma () {
                 if (type === fireType) {
                     scope[type](...otherArguments)
                 }
+                const index = this.onceEvents.indexOf(type)
+                if (index >= 0) {
+                  delete scope[type]
+                } 
             })
         })
         // console.log(fireScope, fireType, otherArguments)
+    },
+    unbind(scope, type) {
+      const scopeEvent = this.events[scope];
+      if (!scopeEvent) {
+        return
+      }
+      if (!scopeEvent[type]) {
+        return
+      }
+      if (scope)
     },
     dispose(scope) {
       const index = this.scopes.indexOf(scope)
@@ -61,35 +75,10 @@ function Zma () {
       delete this.events[scope]
       console.log(this.events)
     },
-    // fire (type, ...rest) {
-    //   if (isString(type) || isArray(type)) {
-    //     if (isArray(type)) {
-    //       for (let key of type) {
-    //         this.fire(key, ...rest)
-    //       }
-    //     } else {
-    //       let emitEvent = this.events[type]
-    //       if (!emitEvent || this.freezeEvents.indexOf(type) >= 0) {
-    //         return false
-    //       }
-    //       let i = 0
-    //       while (i < emitEvent.length) {
-    //         emitEvent[i](...rest)
-    //         i++
-    //       }
-    //       this.onceEvents.forEach((item, index) => {
-    //         if (item === type) {
-    //           this.onceEvents.splice(index, 1)
-    //           delete this.events[type]
-    //         }
-    //       })
-    //     }
-    //   }
-    // },
-    once (type, fn) {
+    once (type, fn, scope) {
       if (isString(type) && isFunc(fn)) {
         this.onceEvents.push(type)
-        return this.on(type, fn)
+        this.on(type, fn, scope)
       }
     },
     // freezeEvent (type) {
@@ -144,48 +133,12 @@ DisposeableEventManagerProxy.prototype.fire = function () {
     this.extendSolt.fire(...arguments)
 }
 
-// DisposeableEventManagerProxy.prototype.once = function (type, fn) {
-//   const result = this.extendSolt.once(type, fn)
-//   if (result) {
-//     this.msgs.push([type, fn])
-//   }
-// }
-// DisposeableEventManagerProxy.prototype.freezeEvent = function (type) {
-//   this.extendSolt.freezeEvent(type)
-// }
-
-// DisposeableEventManagerProxy.prototype.unbind = function (type) {
-//   if (isString(type)) {
-//     let msgsFnItem;
-//     const msgs = this.msgs
-//     const extendSolt = this.extendSolt
-//     const extendSoltItem = extendSolt.events[type]
-//     const extendSoltItemL = extendSoltItem.length
-//     // console.log(extendSolt.events)
-//     // console.log(this.msgs)
-//     if (msgs && msgs.length > 0) {
-//       for (let i = 0; i < msgs.length; i++ ) {
-//           const msgsItem = msgs[i][0]
-//           msgsFnItem = msgs[i][1]
-//           if (type === msgsItem) {
-//               msgs.splice(i, 1)
-//               break
-//           }
-//       }
-//       if (extendSoltItemL === 0) {
-//           delete extendSolt[type]
-//       } else {
-//           for (let i = 0; i < extendSoltItemL; i ++) {
-//               if (extendSoltItem[i] == msgsFnItem) {
-//                   extendSoltItem.splice(i, 1)
-//               }
-//           }
-//       }
-//     }
-//     // console.log(extendSolt.events)
-//     // console.log(this.msgs)
-//   }
-// }
+DisposeableEventManagerProxy.prototype.unbind = function(type) {
+   this.extendSolt.unbind(scope,type)
+}
+DisposeableEventManagerProxy.prototype.once = function(type, fn) {
+  this.extendSolt.once(type, fn, this.scope)
+}
 DisposeableEventManagerProxy.prototype.dispose = function () {
     this.extendSolt.dispose(this.scope)
 }
