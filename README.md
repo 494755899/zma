@@ -28,4 +28,3 @@ import EMA from 'Ema'
       })
   }
 ```
-aa

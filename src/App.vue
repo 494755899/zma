@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Zma from './zma'
+import Zma from '../zma'
 export default {
   name: 'App',
   created() {

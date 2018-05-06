@@ -27,7 +27,6 @@ function Zma() {
           }
         }
         eventHandler.push(fn);
-        console.log(this.events);
         return true;
       }
       return false;
@@ -115,6 +114,10 @@ DisposeableEventManagerProxy.prototype.once = function(type, fn) {
     this.onceEvents.push([type, fn])
   }
 };
+
+DisposeableEventManagerProxy.prototype.unbind = function(type) {
+  this.extendSolt.unbind(type)
+}
 
 DisposeableEventManagerProxy.prototype.dispose = function() {
   const msgs = this.msgs;
