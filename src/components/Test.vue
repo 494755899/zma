@@ -1,18 +1,19 @@
 <template>
   <div class="hello">
+    <h1>{{msg}}</h1>
     <h1 @click="unbind">unbind</h1>
     <h2 @click="myClick">测试触发事件</h2>
   </div>
 </template>
 
 <script>
-import Zma from '../../zma'
+import Zma from 'zma'
 export default {
   name: 'test',
   created() {
     this.ema = Zma.getProxy()
     this.ema.on('ff', () => {
-      console.log('hello app')
+      this.msg= 10
     })
     // console.log('hello created')
   },
@@ -29,7 +30,7 @@ export default {
       // this.ema.fire('app')
     },
     unbind() {
-      this.ema.fire(['app','apponce'])
+      this.ema.fire(['app','say', 'ff'])
     }
   }
 }

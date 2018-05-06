@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import Zma from '../zma'
+import Zma from 'zma'
 export default {
   name: 'App',
   created() {
     this.ema = Zma.getProxy()
-    this.ema.on('app', () => {
-      console.log('app')
+    this.ema.on(['app', 'anotherapp'], () => {
+      console.log('two event')
     })
-    this.ema.once('app', () => {
+    this.ema.once('say', () => {
       console.log('apponce')
     })
   },
@@ -27,9 +27,6 @@ export default {
     unbind () {
       // this.ema.unbind('app3')
     },
-    fs() {
-      console.log('app');
-    }
   }
 }
 </script>

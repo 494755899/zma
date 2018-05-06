@@ -7,10 +7,14 @@
 </template>
 
 <script>
+import Zma from 'zma'
 export default {
   name: 'HelloWorld',
   created() {
- 
+     this.ema = Zma.getProxy()
+  },
+  destroyed() {
+     this.ema.dispose()
   },
   data () {
     return {
@@ -19,8 +23,11 @@ export default {
   },
   methods: {
     myClick() {
+       this.ema.freezeEvent('app')
+
     },
     removeClick() {
+       this.ema.clearFreezeEvent('app')
     }
   }
 }
