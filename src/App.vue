@@ -12,15 +12,13 @@ import Zma from './zma'
 export default {
   name: 'App',
   created() {
-    this.ema = Zma.getProxy('app')
-    this.ema.on('ff', () => {
-      console.log('app ff')
+    this.ema = Zma.getProxy()
+    this.ema.on('app', () => {
+      console.log('app')
     })
-    // this.ema.once('app2', () => {
-    //   console.log('app2')
-    // })
-  },
-  mounted() {
+    this.ema.once('app', () => {
+      console.log('apponce')
+    })
   },
   methods: {
     fire () {

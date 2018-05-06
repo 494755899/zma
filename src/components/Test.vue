@@ -10,19 +10,7 @@ import Zma from '../zma'
 export default {
   name: 'test',
   created() {
-    Zma.on('ff', () => {
-      console.log('go')
-    })
-    Zma.on('mm', () => {
-      console.log(go)
-    })
-    this.ema = Zma.getProxy('test')
-    this.ema.on(['app','app2'], () => {
-      console.log('hello app')
-    })
-    this.ema.once('once', () => {
-      console.log('once')
-    })
+    this.ema = Zma.getProxy()
     this.ema.on('ff', () => {
       console.log('hello app')
     })
@@ -41,8 +29,7 @@ export default {
       // this.ema.fire('app')
     },
     unbind() {
-      this.ema.fire(['app','gobal'],'ff',2,3,4,5)
-      this.ema.fire('once')
+      this.ema.fire(['app','apponce'])
     }
   }
 }
