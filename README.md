@@ -14,7 +14,7 @@
 
 ### App.vue文件中
 
-```
+```js
   import Zma from 'zma'
   created () {
       通过getProxy生成一个新的事件小管理器，管理当前组件内部的事件
@@ -25,7 +25,7 @@
 > 绑定事件
 前面已经做好了生成当前组件的的事件管理器  
 
-```
+```js
   mounted () {
       // 回调函数中可以接收任意参数
       this.zma.on('say', (param) => {
@@ -35,7 +35,7 @@
   }
 ```
 在任何组件中，或者同一个组件中都可以绑定同名事件
-```
+```js
   mounted () {
       this.zma.on('say',() => {
           console.log('first say')
@@ -46,7 +46,7 @@
   }
 ```
 同样，也可以像vue中$on一样，通过数组绑定两个事件名
-````
+````js
   mounted () {
       this.zma.on(['say','anotherSay'], () => {
           conosle.log('two event')
@@ -59,7 +59,7 @@
 
 在组件中可以调用unbind方法手动销毁监听的事件
 
-```
+```js
   this.zma.unbind('say')
 ```
 一旦调用unbind，所有组件的内部的say方法都会被销毁，必要的情况下可以通过事件名区分开来
@@ -67,7 +67,7 @@
 > # 提升性能，如何销毁绑定事件
 
 通过事件的管理全局的zma则是一个总线，管理着所有页面绑定的事件，在每个页面或者组件中都有自己的一个事件管理部门，当页面销毁时，为了提升性能优化，则要在组件销毁的时候手动销毁当前组件自己的绑定事件
-```
+```js
   destoryed() {
      this.zma.dispose()
   }
@@ -78,7 +78,7 @@
 > 一次绑定
 
 
-```
+```js
   mounted() {
       this.zma.once('once', () => {
           console.log('once')
@@ -96,7 +96,7 @@
 ### 无论在那个.vue文件中
 
 通过调用fire方法，执行say事件，所有绑定的say事件都会执行，第二个参数之后传的都是向绑定事件传入的参数
-```
+```js
   methods : {
       click () {
           this.zma.fire('say', 'param hello world')
@@ -104,7 +104,7 @@
   }
 ```
 同样也可以用数组的方式调用多个事件
-```
+```js
   methods: {
       click () {
           this.zma.fire(['say','once'], 'param hello world')
@@ -115,7 +115,7 @@
 
 > 销毁指定事件
 
-```
+```js
   method () {
       this.zma.unbind('say')
   }
@@ -128,7 +128,7 @@
 通过freezeEvent事件把指定的事件进行冻结
 && 支持数组参数
 
-```
+```js
   this.zma.freezeEvent('say')
   &&
   this.zma.freezeEvent(['say','sayno'])
@@ -140,14 +140,14 @@
 
 通过clearFreezeEvent事件把指定的事件进行解除冻结
 && 支持数组参数
-````
+````js
   this.zma.clearFreezeEvent('say')
   this.zma.clearFreezeEvent(['say', 'sayno'])
 ````
 > 销毁所有监听事件
 
 通地clear方法进行销毁所有监听事件
-```
+```js
   this.zma.clear()
 ```
 
@@ -156,7 +156,7 @@
 example:
 
 common.js
-```
+```js
  import Zma from 'zma'
  Zma.on('say', () => {
      console.log('say')
