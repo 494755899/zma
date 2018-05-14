@@ -96,8 +96,12 @@ function Zma() {
     },
     once(type, fn) {
       if (isString(type) && isFunc(fn)) {
-        this.onceEvents.push([type, fn]);
-        this.on(type, fn);
+        const result = this.on(type, fn)
+        if (result) {
+          this.onceEvents.push([type, fn])
+          return true
+        }
+        return false
       }
     },
     freezeEvent(type) {
@@ -131,7 +135,7 @@ function Zma() {
       this.onceEvents = null;
     },
     // 获取小ema的代理
-    getProxy(scope) {
+    getProxy() {
       return new DisposeableEventManagerProxy(this);
     }
   };
@@ -179,9 +183,4 @@ DisposeableEventManagerProxy.prototype.dispose = function() {
   this.extendSolt = null;
 };
 
-DisposeableEventManagerProxy.prototype.clear = function() {
-  this.msgs = null;
-  this.extendSolt = null;
-  this.extendSolt.clear();
-};
 export default Zma();
