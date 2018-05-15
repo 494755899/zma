@@ -7,7 +7,8 @@
 </template>
 
 <script>
-import Zma from 'zma'
+// import Zma from '../../zma/zma.js'
+import Zma from '../../zma'
 export default {
   name: 'test',
   created() {
@@ -30,7 +31,7 @@ export default {
       // this.ema.fire('app')
     },
     unbind() {
-      this.ema.fire(['app','say', 'ff'])
+      this.ema.fire(['app','say', 'ff'],'hellow', 1)
     }
   }
 }

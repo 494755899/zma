@@ -1,6 +1,6 @@
 {
   "name": "zma",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "event manager",
   "main": "index.js",
   "scripts": {

@@ -8,7 +8,8 @@
 </template>
 
 <script>
-import Zma from 'zma'
+// import Zma from '../zma/zma.js'
+import Zma from '../zma'
 export default {
   name: 'App',
   created() {
@@ -16,8 +17,8 @@ export default {
     this.ema.on(['app', 'anotherapp'], () => {
       console.log('two event')
     })
-    this.ema.once('say', () => {
-      console.log('apponce')
+    this.ema.once('say', (param, a) => {
+      console.log(param, a)
     })
   },
   methods: {

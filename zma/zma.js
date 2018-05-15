@@ -153,14 +153,14 @@ DisposeableEventManagerProxy.prototype.on = function(type, fn) {
     this.msgs.push([type, fn]);
   }
 };
-DisposeableEventManagerProxy.prototype.fire = function(type) {
-  this.extendSolt.fire(type);
+DisposeableEventManagerProxy.prototype.fire = function(type, ...rest) {
+  this.extendSolt.fire(type, ...rest);
 };
 
 DisposeableEventManagerProxy.prototype.once = function(type, fn) {
   const result = this.extendSolt.once(type, fn);
   if (result) {
-    this.onceEvents.push([type, fn]);
+    this.msgs.push([type, fn]);
   }
 };
 
